@@ -107,6 +107,104 @@
       color: #4b5563;
     }
 
+    /* Opt-in button */
+    .optin-wrap {
+      text-align: center;
+      margin: 8px auto 40px;
+    }
+
+    .optin-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff;
+      border: none;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .optin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+    }
+
+    .optin-btn:active { transform: translateY(0); }
+
+    .optin-subtext {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      animation: pop 0.2s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.9); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .modal h3 {
+      font-size: 1.35rem;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .modal-btn:hover { opacity: 0.88; }
+
+    .btn-yes {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .btn-no {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
     /* Footer */
     footer {
       text-align: center;
@@ -133,6 +231,12 @@
   <main class="container">
     <div class="card">
       <span class="updated">Last updated: July 25, 2026</span>
+
+      <!-- Opt-in button -->
+      <div class="optin-wrap">
+        <button class="optin-btn" onclick="openModal()">Opt In for SMS Messaging!</button>
+        <span class="optin-subtext">(By clicking this button, you will receive SMS notifications.)</span>
+      </div>
 
       <h2>Data Sharing</h2>
       <ul>
@@ -165,6 +269,30 @@
   <footer>
     &copy; 2026 JohnLewaga. All rights reserved.
   </footer>
+
+  <!-- Modal popup -->
+  <div class="modal-overlay" id="optinModal">
+    <div class="modal">
+      <h3>Thanks for requesting to be added to the messaging list!</h3>
+      <div class="modal-actions">
+        <button class="modal-btn btn-yes" onclick="closeModal()">Yes, please!</button>
+        <button class="modal-btn btn-no" onclick="closeModal()">Never mind, don't message me</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('optinModal').classList.add('open');
+    }
+    function closeModal() {
+      document.getElementById('optinModal').classList.remove('open');
+    }
+    // Close when clicking outside the modal box
+    document.getElementById('optinModal').addEventListener('click', function (e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
 
 </body>
 </html>
